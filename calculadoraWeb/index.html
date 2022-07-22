@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Uma calculadora de rendimento dos investimentos com capital inicial e aporte mensal.">
+    <link rel="stylesheet" href="style.css">
+    <title>Saks - Calculadora de Rendimentos</title>
+</head>
+<body>
+    <header class="header">
+        <img src="imagens/logo.svg" class="logo" alt="Logo da Saks">
+    </header>
+
+    <main class="main">
+        <section class="main-left">
+            <h1 class="title">Calculadora de Rendimentos</h1>
+            <img src="imagens/foguete.svg" class="foguete" alt="Imagem de um foguete">
+        </section>
+        <section class="main-right">
+            <div class="card-calculadora">
+                <h2 class="title-calculadora">Calculadora</h2>
+                <div class="textfield">
+                    <div class="row">
+                        <div class="input">
+                            <label for="valor-inicial">Valor inicial</label>
+                            <input type="text" name="valor-inicial" placeholder="R$ 0,00">
+                        </div>
+                        <div class="input">
+                            <label for="valor-mensal">Valor mensal</label>
+                            <input type="text" name="valor-mensal" placeholder="R$ 0,00">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input">
+                            <label for="taxa-juros">Taxa de juros</label>
+                            <input type="text" name="taxa-juros" placeholder="0,00% por mês">
+                        </div>
+                        <div class="input">
+                            <label for="periodo">Período em</label>
+                            <input type="text" name="periodo" placeholder="0 meses">
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-calculadora">
+                    <buttom class="btn-calcular">Calcular</buttom>
+                    <buttom class="btn-limpar">Limpar</buttom>
+                </div>
+            </div>
+            <div class="card-resultado">
+                <h3 class="title-resultado">Resultado</h3>
+                <div class="output">
+                    <label for="valor-total-final">Valor total final</label>
+                    <input type="text" name="valor-total-final" placeholder="R$ 0,00" readonly="readonly">
+                </div>
+                <div class="output">
+                    <label for="valor-total-investido">Valor total investido</label>
+                    <input type="text" name="valor-total-investido" placeholder="R$ 0,00" readonly="readonly">
+                </div>
+                <div class="output">
+                    <label for="total-juros">Total em juros</label>
+                    <input type="text" name="total-juros" placeholder="R$ 0,00" readonly="readonly">
+                </div>
+                <div class="output">
+                    <label for="imposto-renda">Imposto de renda</label>
+                    <input type="text" name="imposto-renda" placeholder="R$ 0,00" readonly="readonly">
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
