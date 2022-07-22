@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Plus+Jakarta+Sans&display=swap');
+
+body {
+    margin: 0;
+    background: linear-gradient(180deg, #5274D8 0%, #FFFFFF 82.29%);
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 24px;
+}
+
+.logo {
+    height: 22px
+}
+
+main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-left {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title {
+    color: #132644;
+    font-family: 'Fraunces';
+    font-style: bold;
+    font-weight: 700;
+    font-size: 45pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.foguete {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    width: 70%;
+}
+
+.main-right {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.card-calculadora {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 25px 20px;
+    background: #B3CBFA;
+    border-radius: 20px;
+    box-shadow: 0px 5px 15px #00000056;
+    box-sizing: border-box;
+}
+
+.title-calculadora {
+    color: #132644;
+    font-family: 'Fraunces';
+    font-style: bold;
+    font-weight: 700;
+    font-size: 25pt;
+    margin: 0;
+}
+
+.textfield {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.input {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    color: #132644;
+    font-size: 12pt;
+    margin: 20px 20px;
+}
+
+.input > input {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    background: #FEFEFE;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    color: #132644;
+    font-size: 12pt;
+    box-shadow: 0px 5px 15px #00000056;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.input > label {
+    color: #132644;
+    margin-bottom: 5px;
+    font-size: 12pt;
+}
+
+.input > input::placeholder {
+    color: #8F8F8F;
+}
+
+.btn-calculadora {
+    display: flex;
+    flex-direction: row;
+    align-items:center; 
+    justify-content: center;
+    font-family: 'Fraunces';
+    font-style: bold;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.btn-calcular {
+    width: 100%;
+    padding: 12px 40px;
+    margin: 5px 25px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    color: #FFFFFF;
+    background: #5274D8;
+    cursor: pointer;
+    box-shadow: 0px 5px 20px -6px #3656b5;
+    display: flex;
+    align-items:center; 
+    justify-content: center;
+}
+
+.btn-limpar {
+    width: 100%;
+    padding: 12px 40px;
+    margin: 5px 25px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    color: #5274D8;
+    background: #FEFEFE;
+    cursor: pointer;
+    box-shadow: 0px 5px 20px -6px #b1afaf;
+}
+
+.card-resultado {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 25px 20px;
+    background: #B3CBFA;
+    border-radius: 20px;
+    box-shadow: 0px 5px 15px #00000056;
+    box-sizing: border-box;
+}
+
+.title-resultado {
+    color: #132644;
+    font-family: 'Fraunces';
+    font-style: bold;
+    font-weight: 700;
+    font-size: 20pt;
+    margin: 0;
+}
+
+.output-field {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.output {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    color: #132644;
+    font-size: 12pt;
+    margin: 20px 20px;
+}
+
+.output > input {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    background: #FEFEFE;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    color: #132644;
+    font-size: 12pt;
+    box-shadow: 0px 5px 15px #00000056;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.output > label {
+    color: #132644;
+    margin-bottom: 5px;
+    font-size: 12pt;
+}
+
+.valor-total-final::placeholder {
+    color: #5274D8;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+}
+
+.valor-total-investido::placeholder {
+    color: #494646;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+}
+
+.valor-total-juros::placeholder {
+    color: #3BDC4B;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+}
+
+.valor-imposto-renda::placeholder {
+    color: #DC3B3B;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+}
+
+@media only screen and (max-width: 950px) {
+    .card-calculadora {
+        width: 85%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    main {
+        flex-direction: column;
+    }
+
+    .main-left {
+        display: none;
+    }
+}
