@@ -1,0 +1,19 @@
+Valor total investido (VTI)
+Valor total de juros (VTJ)
+Valor de Imposto de Renda (VIR)
+Valor total final (VTF)
+
+Valor Total Final Bruto (VTFB) -> Variável temporária
+
+VTFB = (CapitalIncial x (1 + ((rentabilidade / 100)) ^ período)) + (AporteMensal × (((((1 + (rentabilidade / 100))) ^ periodo )− 1) ÷ (rentabilidade / 100)))
+
+VTI = valorInicialInvestido + periodo*valorMensalInvestido
+
+VTJ = VTFB - VTI
+
+VIR =  (periodo <= 180) -> (22.5/100)*VTJ
+	(181 <= periodo <= 360) -> (20/100)*VTJ
+	(361 <= periodo <= 720) -> (17.5/100)*VTJ
+	(720 < periodo) -> (15/100)*VTJ
+
+VTF = VTI + VTJ - VIR
