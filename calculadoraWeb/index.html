@@ -5,69 +5,126 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Uma calculadora de rendimento dos investimentos com capital inicial e aporte mensal.">
+    <meta name="author" content="Alexandre Debortoli de Souza e Bernar Duarte">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <title>Saks - Calculadora de Rendimentos</title>
+
+    <title>Saks · Calculadora de Rendimentos</title>
 </head>
 <body>
-    <header class="header">
-        <img src="imagens/logo.svg" class="logo" alt="Logo da Saks">
-    </header>
-
-    <main class="main">
-        <section class="main-left">
-            <h1 class="title">Calculadora de Rendimentos</h1>
-            <img src="imagens/foguete.svg" class="foguete" alt="Imagem de um foguete">
-        </section>
-        <section class="main-right">
-            <div class="card-calculadora">
-                <h2 class="title-calculadora">Calculadora</h2>
-                <div class="textfield">
-                    <div class="row">
-                        <div class="input">
-                            <label for="valor-inicial">Valor inicial</label>
-                            <input type="text" name="valor-inicial" placeholder="R$ 0,00">
+    <div class="container">
+        <main>
+            <div class="py-5 text-center">
+                <img class="d-block mx-auto mb-4" src="images/logo.svg" alt="Logo da Saks" width="72" height="57">
+                <h1>Calculadora de Rendimentos</h1>
+            </div>
+                <div class="container">
+                    <div class="row row-cols-1 row-cols-sm-2 g-5">
+                        <div class="col">
+                            <img class="d-block mx-auto mb-4" src="images/animacao.svg" alt="Animação de Rendimentos" width="95%" height="95%">
                         </div>
-                        <div class="input">
-                            <label for="valor-mensal">Valor mensal</label>
-                            <input type="text" name="valor-mensal" placeholder="R$ 0,00">
+                        <div class="col">
+                            <div class="card" id="card-calculadora">
+                                <div class="card-body">
+                                  <h2 class="mb-3 text-center">Calculadora</h2>
+                                  <form class="needs-validation" novalidate>
+                                    <div class="row g-3">
+                                        <div class="col-sm-6">
+                                            <label for="valorInicial" class="form-label">Valor inicial</label>
+                                            <div class="input-group has-validation" id="input-valor">
+                                                <span class="input-group-text">R$</span>
+                                                <input type="number" format="currency" precision="2" class="form-control" id="valorInicial" placeholder="0,00" required>
+                                                <div class="invalid-feedback">
+                                                  O valor inicial é obrigatório.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="valorMensal" class="form-label">Valor mensal</label>
+                                            <div class="input-group has-validation" id="input-valor">
+                                                <span class="input-group-text">R$</span>
+                                                <input type="text" class="form-control" id="valorMensal" placeholder="0,00" required>
+                                                <div class="invalid-feedback">
+                                                  O valor me é obrigatório.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="taxaJuros" class="form-label">Taxa de juros</label>
+                                            <div class="input-group has-validation" id="input-valor">
+                                                <span class="input-group-text">%</span>
+                                                <input type="text" class="form-control" id="taxaJuros" placeholder="0,00" required>
+                                                <span class="input-group-text">Mensal</span>
+                                                <div class="invalid-feedback">
+                                                  A taxa de juros é obrigatória.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="periodo" class="form-label">Periodo em</label>
+                                            <div class="input-group has-validation">
+                                                <input type="number" class="form-control" id="periodo" placeholder="0" required>
+                                                <span class="input-group-text">Meses</span>
+                                                <div class="invalid-feedback">
+                                                  O período é obrigatório.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button class="w-100 btn btn-primary  btn-lg" type="submit" id="btn-calcular">Calcular</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button class="w-100 btn btn-outline-secondary  btn-lg" type="submit" id="btn-limpar">Limpar</button>
+                                        </div>
+                                    </div>
+                                    
+                                  </form>
+                                </div>
+                              </div>
+                              <div class="card mt-4" id="card-resultado">
+                                <div class="card-body">
+                                    <form class="needs-validation" novalidate>
+                                        <div class="row g-3">
+                                            <div class="col-sm-6">
+                                                <label for="valorTotalFinal" class="form-label">Valor total final</label>
+                                                <div class="input-group has-validation">
+                                                    <span class="input-group-text">R$</span>
+                                                    <input type="text" class="form-control" id="valorTotalFinal" placeholder="0,00" readonly="readonly">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="valorTotalInvestido" class="form-label">Valor total investido</label>
+                                                <div class="input-group has-validation">
+                                                    <span class="input-group-text">R$</span>
+                                                    <input type="text" class="form-control" id="valorTotalInvestido" placeholder="0,00" readonly="readonly">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="totalJuros" class="form-label">Total em juros</label>
+                                                <div class="input-group has-validation">
+                                                    <span class="input-group-text">R$</span>
+                                                    <input type="text" class="form-control" id="totalJuros" placeholder="0,00" readonly="readonly">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="impostoRenda" class="form-label">Imposto de renda</label>
+                                                <div class="input-group has-validation">
+                                                    <span class="input-group-text">R$</span>
+                                                    <input type="text" class="form-control" id="impostoRenda" placeholder="0,00" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input">
-                            <label for="taxa-juros">Taxa de juros</label>
-                            <input type="text" name="taxa-juros" placeholder="0,00% por mês">
-                        </div>
-                        <div class="input">
-                            <label for="periodo">Período em</label>
-                            <input type="text" name="periodo" placeholder="0 meses">
-                        </div>
-                    </div>
-                </div>
-                <div class="btn-calculadora">
-                    <buttom class="btn-calcular">Calcular</buttom>
-                    <buttom class="btn-limpar">Limpar</buttom>
                 </div>
             </div>
-            <div class="card-resultado">
-                <h3 class="title-resultado">Resultado</h3>
-                <div class="output">
-                    <label for="valor-total-final">Valor total final</label>
-                    <input type="text" name="valor-total-final" placeholder="R$ 0,00" readonly="readonly">
-                </div>
-                <div class="output">
-                    <label for="valor-total-investido">Valor total investido</label>
-                    <input type="text" name="valor-total-investido" placeholder="R$ 0,00" readonly="readonly">
-                </div>
-                <div class="output">
-                    <label for="total-juros">Total em juros</label>
-                    <input type="text" name="total-juros" placeholder="R$ 0,00" readonly="readonly">
-                </div>
-                <div class="output">
-                    <label for="imposto-renda">Imposto de renda</label>
-                    <input type="text" name="imposto-renda" placeholder="R$ 0,00" readonly="readonly">
-                </div>
-            </div>
-        </section>
-    </main>
+        </main>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script type="javascript" href="main.js"></script>
 </body>
 </html>
