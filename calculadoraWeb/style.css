@@ -37,6 +37,46 @@ h2 {
     border-radius: 20px;
 }
 
+#valorInicial {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 600;
+}
+
+#valorMensal {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 600;
+}
+
+#taxaJuros {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 600;
+}
+
+#periodo {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 600;
+}
+
+#valorInicial::placeholder {
+    color: #bbbbbb;
+}
+
+#valorMensal::placeholder {
+    color: #bbbbbb;
+}
+
+#taxaJuros::placeholder {
+    color: #bbbbbb;
+}
+
+#periodo::placeholder {
+    color: #bbbbbb;
+}
+
 #btn-calcular {
     font-family: 'Fraunces';
     font-style: normal;
@@ -57,11 +97,41 @@ h2 {
     border-radius: 10px;
 }
 
+#valorTotalFinal {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+    /*color: #325AD1;*/
+    color: #3D3D3D;
+}
+
+#valorTotalInvestido {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+    color: #3D3D3D;
+}
+
+#totalJuros {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+    color: #2EBD2E;
+}
+
+#impostoRenda {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+    color: #D80000;
+}
+
 #valorTotalFinal::placeholder {
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
     font-weight: 700;
-    color: #325AD1;
+    /*color: #325AD1;*/
+    color: #3D3D3D;
 }
 
 #valorTotalInvestido::placeholder {
