@@ -40,7 +40,8 @@
                                             <div class="input-group has-validation" id="input-valor">
                                                 <span class="input-group-text">R$</span>
                                                 <input type="text" class="form-control" id="valorInicial"
-                                                    placeholder="0,00" onkeyup="formatarMoedaInput('valorInicial')" required>
+                                                    placeholder="0,00" onkeyup="formatarMoedaInput('valorInicial')"
+                                                    required>
                                                 <div class="invalid-feedback">
                                                     O valor inicial é obrigatório.
                                                 </div>
@@ -51,7 +52,8 @@
                                             <div class="input-group has-validation" id="input-valor">
                                                 <span class="input-group-text">R$</span>
                                                 <input type="text" class="form-control" id="valorMensal"
-                                                    placeholder="0,00" onkeyup="formatarMoedaInput('valorMensal')" required>
+                                                    placeholder="0,00" onkeyup="formatarMoedaInput('valorMensal')"
+                                                    required>
                                                 <div class="invalid-feedback">
                                                     O valor me é obrigatório.
                                                 </div>
@@ -62,7 +64,8 @@
                                             <div class="input-group has-validation" id="input-valor">
                                                 <span class="input-group-text">%</span>
                                                 <input type="text" class="form-control" id="taxaJuros"
-                                                    placeholder="0,00" onkeyup="formatarMoedaInput('taxaJuros')" required>
+                                                    placeholder="0,00" onkeyup="formatarMoedaInput('taxaJuros')"
+                                                    required>
                                                 <span class="input-group-text">Mensal</span>
                                                 <div class="invalid-feedback">
                                                     A taxa de juros é obrigatória.
@@ -136,6 +139,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="card mb-5" id="card-grafico">
+                    <div class="card-body">
+                        <div class="col" id="curve_chart"></div>
+                    </div>
+                </div>
             </div>
     </div>
     </main>
@@ -143,6 +151,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
     <script src="controller.js"></script>
 </body>
 
