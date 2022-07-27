@@ -37,6 +37,14 @@ h2 {
     border-radius: 20px;
 }
 
+#card-grafico {
+    box-sizing: border-box;
+
+    background: #D2DBF5;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+}
+
 #valorInicial {
     font-family: 'Plus Jakarta Sans';
     font-style: normal;
