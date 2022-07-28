@@ -6,6 +6,8 @@ var valorTotalFinal;
 var valorTotalInvestido;
 var valorTotalJuros;
 var valorImpostoRenda;
+var boolMes = true;
+var meses = [["Meses", "Valor Total Investido", "Valor Total Final Bruto"]];
 
 let vli = document.querySelector('#valorInicial');
 let vlm = document.querySelector("#valorMensal");
@@ -21,13 +23,38 @@ let textIr = document.querySelector("#impostoRenda");
 document.getElementById('card-grafico').style.display = "none";
 
 calcular.addEventListener("click", () => {
-    console.log(vli.value, vlm.value, tj.value, p.value);
-    calcula();
+    limparJs();
+    if(preenchimentoValido(vli.value, tj.value, p.value, vlm.value) == true) {
+        calculaPorMes(formatarMoeda(vli.value), formatarMoeda(tj.value), parseFloat(p.value), formatarMoeda(vlm.value));
+    }
 })
 
 limpar.addEventListener("click", () => {
     limpa();
+    limparJs();
 })
+
+function preenchimentoValido(ivli, itj, ip, ivlm) {
+    if(ivli == undefined || ivli == "") {
+        alert("Preencha corretamente o valor inicial.");
+        return false;
+    } else if(ivlm == undefined || ivlm == "") {
+        alert("Preencha corretamente o valor mensal.");
+        return false;
+    } else if(itj == undefined || itj == "") {
+        alert("Preencha corretamente a taxa de juros.");
+        return false;
+    } else if(ip == 0 || ip == undefined || ip == "") {
+        if(ip == 0) {
+            alert("O período deve ser maior que zero.");
+        } else {
+            alert("Preencha corretamente o período.");
+        }
+        return false;
+    } else {
+        return  true;
+    }
+}
 
 function limpa() {
     vli.value = "";
@@ -39,25 +66,59 @@ function limpa() {
     textTj.value = "";
     textIr.value = "";
 
-    document.getElementById('logo-logo').scrollIntoView({behavior: "smooth"});
-    setTimeout(() => {document.getElementById('card-grafico').style.display = "none";
-    }, 500);
+    document.getElementById('card-grafico').style.display = "none";
 }
 
-function calcula() {
-    valorTotalFinal = calculaValorTotalFinalBruto(formatarMoeda(vli.value), formatarMoeda(tj.value), p.value, formatarMoeda(vlm.value));
-    valorTotalInvestido = calculaTotalInvestido(formatarMoeda(vli.value), formatarMoeda(vlm.value), p.value);
+function limparJs() {
+    valorInicialInvestido=null;
+    valorMensalInvestido=null;
+    rendimentoMensal=null;
+    periodoMensal=null;
+    valorTotalFinal=null;
+    valorTotalInvestido=null;
+    valorTotalJuros=null;
+    valorImpostoRenda=null;
+    meses=null;
+    meses = [["Meses", "Valor Total Investido", "Valor Total Final Bruto"]];
+
+}
+
+function calculaPorMes(cVli, cTj, cP, cVlm) {
+    var periodo = 0;
+
+    if (boolMes == false) {
+        cP = cP * 12;
+    }
+
+    while (cP - 1 >= periodo) {
+        var mes = [];
+        periodo++;
+        mes.push(periodo);
+        if(cTj != 0) {
+            valorTotalFinal = calculaValorTotalFinalBruto(cVli, cTj, periodo, cVlm);
+            valorTotalInvestido = calculaTotalInvestido(cVli, cVlm, periodo);
+            valorTotalJuros = calculaTotalJuros(valorTotalFinal, valorTotalInvestido);
+        } else {
+            valorTotalFinal = cVli + (periodo * cVlm);
+            valorTotalInvestido = valorTotalFinal;
+            valorTotalJuros = 0;
+        }
+        mes.push(parseFloat((valorTotalFinal - valorTotalJuros).toFixed(2)));
+        mes.push(parseFloat(valorTotalFinal.toFixed(2)));
+        meses.push(mes);
+    }
     textVi.value = valorTotalInvestido.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    valorTotalJuros = calculaTotalJuros(valorTotalFinal, valorTotalInvestido);
     textTj.value = valorTotalJuros.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    valorImpostoRenda = calculaTotalImpostoRenda(p.value, valorTotalJuros);
+
+    valorImpostoRenda = calculaTotalImpostoRenda(cP, valorTotalJuros);
     textIr.value = valorImpostoRenda.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
     valorTotalFinal = calculaValorTotalLiquido(valorTotalInvestido, valorTotalJuros, valorImpostoRenda);
     textVli.value = valorTotalFinal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    
+
     document.getElementById('card-grafico').style.display = "block";
     google.charts.setOnLoadCallback(drawChart);
-    document.getElementById('card-resultado').scrollIntoView({behavior: "smooth"});
+    document.getElementById('card-resultado').scrollIntoView({ behavior: "smooth" });
 }
 
 //função que calcula o valor final bruto  
@@ -131,19 +192,12 @@ function formatarMoeda(valor) {
 google.charts.load('current', { 'packages': ['corechart'] });
 
 window.onresize = doALoadOfStuff;
-
 function doALoadOfStuff() {
     drawChart();
 }
 
 function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-        ['Meses', 'Valor Investido', 'Valor Total Final Bruto'],
-        ['1', 1000.00, 1000],
-        ['2', 2000.00, 2500],
-        ['3', 3000.00, 4500],
-        ['4', 4000.00, 7500]
-    ]);
+    var data = google.visualization.arrayToDataTable(meses);
 
     var options = {
         title: 'Gráfico do Investimento',
@@ -156,4 +210,15 @@ function drawChart() {
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
     chart.draw(data, options);
+}
+
+//funções do dropbox
+function escreveAno() {
+    document.getElementById("dropBox").innerHTML = "Anos";
+    boolMes = false;
+}
+
+function escreveMes() {
+    document.getElementById("dropBox").innerHTML = "Meses";
+    boolMes = true;
 }
