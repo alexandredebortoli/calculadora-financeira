@@ -18,9 +18,9 @@ let textVi = document.querySelector("#valorTotalInvestido");
 let textTj = document.querySelector("#totalJuros");
 let textIr = document.querySelector("#impostoRenda");
 
+document.getElementById('card-grafico').style.display = "none";
 
 calcular.addEventListener("click", () => {
-    //console.log(vli.value,vlm.value,tj.value,p.value);
     console.log(vli.value, vlm.value, tj.value, p.value);
     calcula();
 })
@@ -38,6 +38,10 @@ function limpa() {
     textVi.value = "";
     textTj.value = "";
     textIr.value = "";
+
+    document.getElementById('logo-logo').scrollIntoView({behavior: "smooth"});
+    setTimeout(() => {document.getElementById('card-grafico').style.display = "none";
+    }, 500);
 }
 
 function calcula() {
@@ -50,6 +54,10 @@ function calcula() {
     textIr.value = valorImpostoRenda.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     valorTotalFinal = calculaValorTotalLiquido(valorTotalInvestido, valorTotalJuros, valorImpostoRenda);
     textVli.value = valorTotalFinal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    
+    document.getElementById('card-grafico').style.display = "block";
+    google.charts.setOnLoadCallback(drawChart);
+    document.getElementById('card-resultado').scrollIntoView({behavior: "smooth"});
 }
 
 //função que calcula o valor final bruto  
@@ -121,11 +129,16 @@ function formatarMoeda(valor) {
 
 //GOOGLE LINE CHART
 google.charts.load('current', { 'packages': ['corechart'] });
-google.charts.setOnLoadCallback(drawChart);
+
+window.onresize = doALoadOfStuff;
+
+function doALoadOfStuff() {
+    drawChart();
+}
 
 function drawChart() {
     var data = google.visualization.arrayToDataTable([
-        ['Meses', 'Valor Investido', 'Valor Total Final'],
+        ['Meses', 'Valor Investido', 'Valor Total Final Bruto'],
         ['1', 1000.00, 1000],
         ['2', 2000.00, 2500],
         ['3', 3000.00, 4500],
@@ -134,12 +147,13 @@ function drawChart() {
 
     var options = {
         title: 'Gráfico do Investimento',
-        subtitle: 'valor investido e valor total final por mês (R$)',
+        backgroundColor: '#FDF9F9',
         curveType: 'function',
         legend: { position: 'bottom' }
     };
 
-    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
     chart.draw(data, options);
 }
