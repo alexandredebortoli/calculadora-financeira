@@ -19,7 +19,7 @@
 <body>
     <div class="container">
         <main>
-            <div class="py-5 text-center">
+            <div class="text-center" id="logo-logo">
                 <img class="d-block mx-auto mb-4" src="images/logo.svg" alt="Logo da Saks" width="72" height="57">
                 <h1>Calculadora de Rendimentos</h1>
             </div>
@@ -139,9 +139,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="card mb-5" id="card-grafico">
-                    <div class="card-body">
-                        <div class="col" id="curve_chart"></div>
+                <div class="row" id="card-grafico">
+                    <div class="col-md-12">
+                      <div id="chart_div" class="chart" style="width: 100%; height:100%;"></div>
                     </div>
                 </div>
             </div>
