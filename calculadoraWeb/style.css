@@ -169,3 +169,17 @@ h2 {
     background: #FDF9F9;
     border: 0px solid #FDF9F9;
 }
+
+#spanPeriodo{
+    padding:0;
+    height: 38px;
+    width : 79px;
+}
+
+#botaoPeriodo{
+    height: 36px;
+    width : 79px;
+    background-color: #E9ECEF;
+    border-radius: 0rem 0.375rem .375rem 0rem;
+    color: #212529;
+}
