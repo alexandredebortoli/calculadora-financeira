@@ -40,7 +40,7 @@
                                             <div class="input-group has-validation" id="input-valor">
                                                 <span class="input-group-text">R$</span>
                                                 <input type="text" class="form-control" id="valorInicial"
-                                                    placeholder="0,00" onkeyup="formatarMoedaInput('valorInicial')"
+                                                    placeholder="0,00" onkeypress="$(this).mask('#.##0,00', {reverse: true});"
                                                     required>
                                                 <div class="invalid-feedback" id="errorVi">
                                                     O preenchimento correto do valor inicial é obrigatório.
@@ -52,7 +52,7 @@
                                             <div class="input-group has-validation" id="input-valor">
                                                 <span class="input-group-text">R$</span>
                                                 <input type="text" class="form-control" id="valorMensal"
-                                                    placeholder="0,00" onkeyup="formatarMoedaInput('valorMensal')"
+                                                    placeholder="0,00" onkeypress="$(this).mask('#.##0,00', {reverse: true});"
                                                     required>
                                                 <div class="invalid-feedback">
                                                     O valor me é obrigatório.
@@ -64,7 +64,7 @@
                                             <div class="input-group has-validation" id="input-valor">
                                                 <span class="input-group-text">%</span>
                                                 <input type="text" class="form-control" id="taxaJuros"
-                                                    placeholder="0,00" onkeyup="formatarMoedaInput('taxaJuros')"
+                                                    placeholder="0,00" onkeypress="$(this).mask('#.##0,00', {reverse: true});"
                                                     required>
                                                 <span class="input-group-text">Mensal</span>
                                                 <div class="invalid-feedback">
@@ -76,7 +76,7 @@
                                             <label for="periodo" class="form-label">Periodo em</label>
                                             <div class="input-group has-validation" id="input-valor">
                                                 <input type="number" class="form-control" id="periodo" placeholder="0"
-                                                    required>
+                                                onkeypress="$(this).mask('#', {reverse: true});" required>
                                                 <span id="spanPeriodo" class="input-group-text">
                                                     <div class="input-group-prepend ">
                                                         <button type="button" id="botaoPeriodo"
@@ -170,6 +170,8 @@
         crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
     <script src="controller.js"></script>
 </body>
