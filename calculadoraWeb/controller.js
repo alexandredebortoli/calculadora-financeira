@@ -1,182 +1,150 @@
-var valorInicialInvestido;
-var valorMensalInvestido;
-var rendimentoMensal;
-var periodoMensal;
-var valorTotalFinal;
-var valorTotalInvestido;
-var valorTotalJuros;
-var valorImpostoRenda;
-var boolMes = true;
-var meses = [["Meses", "Valor Total Investido", "Valor Total Final Bruto"]];
+//Input dos campus
+let inputValorInicial = document.querySelector('#valorInicial');
+let inputValorMensal = document.querySelector('#valorMensal');
+let inputValorJuros = document.querySelector('#taxaJuros');
+let inputPeriodo = document.querySelector('#periodo');
+//Input dos botões
+let btnCalcular = document.querySelector('#btn-calcular');
+let btnLimpar = document.querySelector('#btn-limpar');
+//Output dos campus
+let outputValorTotalFinal = document.querySelector('#valorTotalFinal');
+let outputValorTotalInvestido = document.querySelector('#valorTotalInvestido');
+let outputValorTotalJuros = document.querySelector('#totalJuros');
+let outputImpostoRenda = document.querySelector('#impostoRenda');
 
-let vli = document.querySelector('#valorInicial');
-let vlm = document.querySelector("#valorMensal");
-let tj = document.querySelector("#taxaJuros");
-let p = document.querySelector("#periodo");
-let calcular = document.querySelector("#btn-calcular");
-let limpar = document.querySelector("#btn-limpar");
-let textVli = document.querySelector("#valorTotalFinal");
-let textVi = document.querySelector("#valorTotalInvestido");
-let textTj = document.querySelector("#totalJuros");
-let textIr = document.querySelector("#impostoRenda");
+//Objeto calculadora
+let calculadora = {
+    valorInicial: 0.00,
+    valorMensal: 0.00,
+    taxaJuros: 0.00,
+    periodo: 0,
+    anos: false,
+    meses: [["Meses", "Valor Total Investido", "Valor Total Final Bruto"]],
+    valorTotalFinal: 0.00,
+    valorTotalInvestido: 0.00,
+    valorTotalJuros: 0.00,
+    valorImpostoRenda: 0.00,
+    porcentagemImpostoRenda: function () {
+        if (this.periodo * 30 <= 180) {
+            return (22.5 / 100);
+        } else if (this.periodo * 30 <= 360) {
+            return (20 / 100);
+        } else if (this.periodo * 30 <= 720) {
+            return (17.5 / 100);
+        } else {
+            return (15 / 100);
+        }
+    }
+};
 
-document.getElementById('card-grafico').style.display = "none";
+//Esconder gráfico no carregamento da página
+document.getElementById('card-grafico').style.display = 'none';
 
-calcular.addEventListener("click", () => {
-    limparJs();
-    if(preenchimentoValido(vli.value, tj.value, p.value, vlm.value) == true) {
-        calculaPorMes(formatarMoeda(vli.value), formatarMoeda(tj.value), parseFloat(p.value), formatarMoeda(vlm.value));
+//Eventos dos botões
+btnCalcular.addEventListener('click', () => {
+    limparBack();
+    if (preenchimentoValido() == true) {
+        calcularRendimentos(formatarMoeda(inputValorInicial.value), formatarMoeda(inputValorMensal.value), formatarMoeda(inputValorJuros.value), parseInt(inputPeriodo.value));
     }
 })
 
-limpar.addEventListener("click", () => {
-    limpa();
-    limparJs();
+btnLimpar.addEventListener('click', () => {
+    limparBack();
+    limparFront();
 })
 
-function preenchimentoValido(ivli, itj, ip, ivlm) {
-    if(ivli == undefined || ivli == "") {
-        alert("Preencha corretamente o valor inicial.");
-        return false;
-    } else if(ivlm == undefined || ivlm == "") {
-        alert("Preencha corretamente o valor mensal.");
-        return false;
-    } else if(itj == undefined || itj == "") {
-        alert("Preencha corretamente a taxa de juros.");
-        return false;
-    } else if(ip == 0 || ip == undefined || ip == "") {
-        if(ip == 0) {
-            alert("O período deve ser maior que zero.");
-        } else {
-            alert("Preencha corretamente o período.");
-        }
-        return false;
+//Funções para limpar os dados
+function limparFront() {
+    inputValorInicial.value = '';
+    inputValorMensal.value = '';
+    inputValorJuros.value = '';
+    inputPeriodo.value = '';
+    outputValorTotalFinal.value = '';
+    outputValorTotalInvestido.value = '';
+    outputValorTotalJuros.value = '';
+    outputImpostoRenda.value = '';
+
+    //Esconder gráfico quando clicar no botão limpar
+    document.getElementById('card-grafico').style.display = 'none';
+}
+
+function limparBack() {
+    calculadora.valorInicial = undefined;
+    calculadora.valorMensal = undefined;
+    calculadora.taxaJuros = undefined;
+    calculadora.periodo = undefined;
+    calculadora.meses = [["Meses", "Valor Total Investido", "Valor Total Final Bruto"]];
+    calculadora.valorTotalFinal = undefined;
+    calculadora.valorTotalInvestido = undefined;
+    calculadora.valorTotalJuros = undefined;
+    calculadora.valorImpostoRenda = undefined;
+}
+
+//Funções para calcular os valores
+function calcularRendimentos(valorInicial, valorMensal, taxaJuros, periodo) {
+    calculadora.valorInicial = valorInicial;
+    calculadora.valorMensal = valorMensal;
+    calculadora.taxaJuros = taxaJuros / 100;
+    if (calculadora.anos == true) {
+        calculadora.periodo = periodo * 12;
     } else {
-        return  true;
-    }
-}
-
-function limpa() {
-    vli.value = "";
-    vlm.value = "";
-    tj.value = "";
-    p.value = "";
-    textVli.value = "";
-    textVi.value = "";
-    textTj.value = "";
-    textIr.value = "";
-
-    document.getElementById('card-grafico').style.display = "none";
-}
-
-function limparJs() {
-    valorInicialInvestido=null;
-    valorMensalInvestido=null;
-    rendimentoMensal=null;
-    periodoMensal=null;
-    valorTotalFinal=null;
-    valorTotalInvestido=null;
-    valorTotalJuros=null;
-    valorImpostoRenda=null;
-    meses=null;
-    meses = [["Meses", "Valor Total Investido", "Valor Total Final Bruto"]];
-
-}
-
-function calculaPorMes(cVli, cTj, cP, cVlm) {
-    var periodo = 0;
-
-    if (boolMes == false) {
-        cP = cP * 12;
+        calculadora.periodo = periodo;
     }
 
-    while (cP - 1 >= periodo) {
-        var mes = [];
-        periodo++;
-        mes.push(periodo);
-        if(cTj != 0) {
-            valorTotalFinal = calculaValorTotalFinalBruto(cVli, cTj, periodo, cVlm);
-            valorTotalInvestido = calculaTotalInvestido(cVli, cVlm, periodo);
-            valorTotalJuros = calculaTotalJuros(valorTotalFinal, valorTotalInvestido);
-        } else {
-            valorTotalFinal = cVli + (periodo * cVlm);
-            valorTotalInvestido = valorTotalFinal;
-            valorTotalJuros = 0;
-        }
-        mes.push(parseFloat((valorTotalFinal - valorTotalJuros).toFixed(2)));
-        mes.push(parseFloat(valorTotalFinal.toFixed(2)));
-        meses.push(mes);
+    calculadora.valorTotalInvestido = calcularValorTotalInvestido();
+    calculadora.valorTotalJuros = calcularValorTotalJuros();
+    calculadora.valorImpostoRenda = calcularValorImpostoRenda();
+    calculadora.valorTotalFinal = calcularValorTotalFinal();
+
+    //Mostrar resultados
+    mostrarResultados();
+}
+
+//Funções de calculos
+function calcularValorTotalFinal() {
+    return (calculadora.valorTotalInvestido + calculadora.valorTotalJuros - calculadora.valorImpostoRenda);
+}
+function calcularValorTotalInvestido() {
+    return (calculadora.valorInicial + (calculadora.valorMensal * calculadora.periodo));
+}
+function calcularValorTotalJuros() {
+    let valorTotalJuro = parseFloat(0.00);
+    let valorTotalInvestido = calculadora.valorInicial;
+    let temp;
+
+    for (let index = 0; index <= calculadora.periodo; index++) {
+        valorTotalJuro = (valorTotalInvestido * calculadora.taxaJuros);
+        temp = valorTotalInvestido + valorTotalJuro;
+        calculadora.meses.push([index, parseFloat((calculadora.valorInicial + (calculadora.valorMensal * index)).toFixed(2)), parseFloat(temp.toFixed(2))]);
+
+        valorTotalInvestido += (valorTotalJuro + calculadora.valorMensal);
     }
-    textVi.value = valorTotalInvestido.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    textTj.value = valorTotalJuros.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    valorImpostoRenda = calculaTotalImpostoRenda(cP, valorTotalJuros);
-    textIr.value = valorImpostoRenda.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    console.log(calculadora.meses);
 
-    valorTotalFinal = calculaValorTotalLiquido(valorTotalInvestido, valorTotalJuros, valorImpostoRenda);
-    textVli.value = valorTotalFinal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return temp - calculadora.valorTotalInvestido;
+}
+function calcularValorImpostoRenda() {
+    return (calculadora.valorTotalJuros * calculadora.porcentagemImpostoRenda());
+}
 
-    document.getElementById('card-grafico').style.display = "block";
+//Função para mostrar resultados
+function mostrarResultados() {
+    //Carregar valores do resultado
+    outputValorTotalFinal.value = calculadora.valorTotalFinal.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    outputValorTotalInvestido.value = calculadora.valorTotalInvestido.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    outputValorTotalJuros.value = calculadora.valorTotalJuros.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    outputImpostoRenda.value = calculadora.valorImpostoRenda.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    //Carregar gráfico
     google.charts.setOnLoadCallback(drawChart);
+    //Mostrar gráfico quando clicar em calcular
+    document.getElementById('card-grafico').style.display = 'block';
+    //Animação para tela descer e mostrar gráfico
     document.getElementById('card-resultado').scrollIntoView({ behavior: "smooth" });
 }
 
-//função que calcula o valor final bruto  
-function calculaValorTotalFinalBruto(capital, juros, periodo, aporte) {
-    return (capital * ((1 + juros / 100) ** periodo)) + (aporte * (((1 + juros / 100) ** periodo) - 1)) / (juros / 100);
-}
-
-//função que calcula o investimento total
-function calculaTotalInvestido(valorII, valorMensal, periodo) {
-    var vI = parseInt(valorII) + periodo * valorMensal;
-    return vI;
-}
-
-//função que calcula o total de juros gerado
-function calculaTotalJuros(valorTotalFinal, valorTotalInvestido) {
-    return valorTotalFinal - valorTotalInvestido;
-}
-
-//função que calcula o total de imposto de renda
-function calculaTotalImpostoRenda(periodo, valorTotalJuros) {
-    var diaRetirado = periodo * 30;
-    //Setando valor da aliquota
-    if (diaRetirado <= 180) {
-        return (valorTotalJuros * 22.5) / 100;
-    } else if (diaRetirado <= 360) {
-        return (valorTotalJuros * 20) / 100;
-    } else if (diaRetirado <= 720) {
-        return (valorTotalJuros * 17.5) / 100;
-    } else {
-        return (valorTotalJuros * 15) / 100;
-    }
-}
-//função para calcular valor final liquido
-function calculaValorTotalLiquido(totalInvestido, totalJuros, ir) {
-    return totalInvestido + totalJuros - ir;
-}
-
-//FORMATAR INPUT
-function formatarMoedaInput(id) {
-    var elemento = document.getElementById(id);
-    var valor = elemento.value;
-
-
-    valor = valor + '';
-    valor = parseInt(valor.replace(/[\D]+/g, ''));
-    valor = valor + '';
-    valor = valor.replace(/([0-9]{2})$/g, ",$1");
-
-    if (valor.length > 6) {
-        valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
-    }
-
-    elemento.value = valor;
-    if (valor == 'NaN') elemento.value = '';
-}
-
+//Função para formatar valores input string BRL para float
 function formatarMoeda(valor) {
-
     if (valor === "") {
         valor = "0";
     } else {
@@ -185,19 +153,18 @@ function formatarMoeda(valor) {
         valor = parseFloat(valor);
     }
     return valor;
-
 }
 
-//GOOGLE LINE CHART
+//Gráfico - GOOGLE LINE CHART
 google.charts.load('current', { 'packages': ['corechart'] });
 
-window.onresize = doALoadOfStuff;
+window.onresize = doALoadOfStuff; //Deixar o gráfico responsivo
 function doALoadOfStuff() {
     drawChart();
 }
 
 function drawChart() {
-    var data = google.visualization.arrayToDataTable(meses);
+    var data = google.visualization.arrayToDataTable(calculadora.meses);
 
     var options = {
         title: 'Gráfico do Investimento',
@@ -212,13 +179,32 @@ function drawChart() {
     chart.draw(data, options);
 }
 
-//funções do dropbox
+//Funções do dropdown do período
 function escreveAno() {
     document.getElementById("dropBox").innerHTML = "Anos";
-    boolMes = false;
+    calculadora.anos = true;
 }
 
 function escreveMes() {
     document.getElementById("dropBox").innerHTML = "Meses";
-    boolMes = true;
+    calculadora.anos = false;
+}
+
+//Função para validar preenchimento dos dados
+function preenchimentoValido() {
+    if (inputValorInicial.value == undefined || inputValorInicial.value == "") {
+        alert("Preencha corretamente o valor inicial.");
+        return false;
+    } else if (inputValorMensal.value == undefined || inputValorMensal.value == "") {
+        alert("Preencha corretamente o valor mensal.");
+        return false;
+    } else if (inputValorJuros.value == undefined || inputValorJuros.value == "") {
+        alert("Preencha corretamente a taxa de juros.");
+        return false;
+    } else if (inputPeriodo.value == 0 || inputPeriodo.value == undefined || inputPeriodo.value == "") {
+        alert("Preencha corretamente o período. (Deve ser maior que zero)");
+        return false;
+    } else {
+        return true;
+    }
 }
